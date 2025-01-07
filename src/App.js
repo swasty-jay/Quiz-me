@@ -4,10 +4,12 @@ import Main from "./Main";
 import Loader from "./Loader";
 import Error from "./Error";
 import Ready from "./Ready";
+import Quetions from "./Quetions";
 
 const initialState = {
-  quetions: [],
+  questions: [],
   status: "Loading",
+  index: 0,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -16,16 +18,24 @@ function reducer(state, action) {
 
     case "datafailed":
       return { ...state, status: "Error" };
+    case "start":
+      return { ...state, status: "active" };
     default:
       throw new Error("action unknown");
   }
 }
 
 export default function App() {
-  const [{ quetions, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
+
+  const Numquestions = questions.lenth;
+
   useEffect(function () {
     fetch("http://localhost:8000/questions")
-      .then((res) => res.json)
+      .then((res) => res.json())
       .then((data) => dispatch({ type: "dataRecieved", payload: data }))
       .catch((err) => dispatch({ type: "datafailed" }));
   }, []);
@@ -37,7 +47,11 @@ export default function App() {
       <Main>
         {status === "Loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <Ready />}
+
+        {status === "ready" && (
+          <Ready NumQuetions={Numquestions} dispatch={dispatch} />
+        )}
+        {status === "active" && <Quetions questions={questions[index]} />}
       </Main>
     </div>
   );
