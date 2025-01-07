@@ -34,8 +34,9 @@ export default function App() {
   const Numquestions = questions.lenth;
 
   useEffect(function () {
-    fetch("http://localhost:8000/questions")
+    fetch("http://localhost:9000/questions")
       .then((res) => res.json())
+      .then((data) => console.log(data))
       .then((data) => dispatch({ type: "dataRecieved", payload: data }))
       .catch((err) => dispatch({ type: "datafailed" }));
   }, []);
