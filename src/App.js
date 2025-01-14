@@ -14,7 +14,7 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case "dataRecieved":
-      return { ...state, quetions: action.payload, status: "ready" };
+      return { ...state, questions: action.payload, status: "ready" };
 
     case "datafailed":
       return { ...state, status: "Error" };
@@ -31,7 +31,7 @@ export default function App() {
     initialState
   );
 
-  const Numquestions = questions.lenth;
+  // const Numquestions = questions.lenth;
 
   useEffect(function () {
     fetch("http://localhost:9000/questions")
@@ -49,9 +49,7 @@ export default function App() {
         {status === "Loading" && <Loader />}
         {status === "error" && <Error />}
 
-        {status === "ready" && (
-          <Ready NumQuetions={Numquestions} dispatch={dispatch} />
-        )}
+        {status === "ready" && <Ready dispatch={dispatch} />}
         {status === "active" && <Quetions questions={questions[index]} />}
       </Main>
     </div>
