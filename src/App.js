@@ -50,7 +50,7 @@ export default function App() {
         {status === "error" && <Error />}
 
         {status === "ready" && <Ready dispatch={dispatch} />}
-        {status === "active" && <Quetions questions={questions[index]} />}
+        {status === "active" && <Questions questions={questions[index]} />}
       </Main>
     </div>
   );
