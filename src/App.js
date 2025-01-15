@@ -4,7 +4,7 @@ import Main from "./Main";
 import Loader from "./Loader";
 import Error from "./Error";
 import Ready from "./Ready";
-import Quetions from "./Quetions";
+import Questions from "./Questions";
 
 const initialState = {
   questions: [],
